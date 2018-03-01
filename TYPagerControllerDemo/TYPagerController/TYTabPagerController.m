@@ -33,6 +33,7 @@
 @property (nonatomic ,assign) BOOL cellContainXib;
 @property (nonatomic ,strong) NSString *cellId;
 
+@property (nonatomic ,strong) UIButton *searchBtn;
 @end
 
 #define kCollectionViewBarHieght 36
@@ -92,6 +93,9 @@
     
     // add progress view
     [self addUnderLineView];
+    
+    // add right search bar
+    [self addRightSearchBar];
 }
 
 - (void)viewWillLayoutSubviews
@@ -99,8 +103,28 @@
     [super viewWillLayoutSubviews];
     _pagerBarView.frame = CGRectMake(0, _collectionViewBarOffsetY, CGRectGetWidth(self.view.frame), self.contentTopEdging+[self statusBarHeight]);
     _pagerBarImageView.frame = _pagerBarView.bounds;
-    _collectionViewBar.frame = CGRectMake(0, [self statusBarHeight], CGRectGetWidth(self.view.frame), self.contentTopEdging);
-                                     
+    _collectionViewBar.frame = CGRectMake(0, [self statusBarHeight], CGRectGetWidth(self.view.frame)-50, self.contentTopEdging);
+    _searchBtn.frame = CGRectMake(_pagerBarView.frame.size.width - 50, _collectionViewBar.frame.origin.y, 50, _collectionViewBar.bounds.size.height);
+}
+
+- (void)addRightSearchBar{
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    [searchBtn setTitle:@"编辑" forState:UIControlStateNormal];
+    [searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _searchBtn = searchBtn;
+    [_pagerBarView addSubview:searchBtn];
+}
+
+- (void)searchBtnClicked:(UIButton *)button{
+    // 当数据源编辑完成后，reloadData
+    // ...
+    [self reloadData];
+}
+
+- (void)addRightEditBar{
+    
 }
 
 - (void)addPagerBarView
@@ -259,7 +283,7 @@
     ((UICollectionViewFlowLayout *)self.collectionViewBar.collectionViewLayout).sectionInset = UIEdgeInsetsMake(0, collectionViewEaging, 0, collectionViewEaging);
     
     _pagerBarView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), self.contentTopEdging+[self statusBarHeight]);
-    _collectionViewBar.frame = CGRectMake(0, [self statusBarHeight], CGRectGetWidth(self.view.frame), self.contentTopEdging);
+    _collectionViewBar.frame = CGRectMake(0, [self statusBarHeight], CGRectGetWidth(self.view.frame) - 50, self.contentTopEdging);//change
 }
 
 // set up progress view frame

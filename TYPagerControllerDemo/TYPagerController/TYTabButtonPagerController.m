@@ -137,7 +137,7 @@
         fromCell.titleLabel.textColor = self.normalTextColor;
         fromCell.transform = CGAffineTransformMakeScale(self.selectFontScale, self.selectFontScale);
     }
-    
+
     if (toCell) {
         toCell.titleLabel.textColor = self.selectedTextColor;
         toCell.transform = CGAffineTransformIdentity;

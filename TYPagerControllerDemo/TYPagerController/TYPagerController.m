@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, TYPagerControllerDirection) {
         unsigned int transitionFromIndexToIndex :1;
         unsigned int transitionFromIndexToIndexProgress :1;
     }_methodFlags;
+    
+    
 }
 
 @property (nonatomic, weak) UIScrollView *contentView;
